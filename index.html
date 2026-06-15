@@ -1,126 +1,290 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>มีอะไรจะให้ดูแหละ</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to bottom, #ffe4e1, #ffb6c1);
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>มีของขวัญมาให้แหละ 🎁</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:#fdf6f0;
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+  position:relative;
+  gap:0;
+}
+.title{
+  font-size:1.5rem;font-weight:500;
+  color:#b5715a;letter-spacing:.01em;
+  margin-bottom:2rem;
+  opacity:0;animation:fadeIn .8s .2s forwards;
+}
+@keyframes fadeIn{to{opacity:1}}
 
-        h1 {
-            color: #d147a3;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 20px;
-            z-index: 10;
-        }
+.scene{
+  position:relative;width:220px;height:280px;
+  cursor:pointer;
+}
 
-        /* โค้ดสร้างดอกไม้ */
-        .flower {
-            position: relative;
-            animation: float 3s ease-in-out infinite;
-        }
+.gift{
+  position:absolute;bottom:0;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;
+  transition:opacity .4s, transform .4s;
+}
+.box-lid{
+  width:108px;height:28px;
+  background:#e8a899;
+  border-radius:6px 6px 0 0;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transition:transform .7s cubic-bezier(.34,1.56,.64,1), opacity .5s;
+}
+.bow{
+  position:absolute;top:-18px;
+  display:flex;gap:2px;align-items:flex-end;
+}
+.bow-l,.bow-r{
+  width:24px;height:18px;
+  background:#d4816e;
+  border-radius:50% 50% 0 50%;
+}
+.bow-r{border-radius:50% 50% 50% 0;transform:scaleX(-1)}
+.bow-knot{
+  position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+  width:10px;height:10px;background:#c06450;border-radius:50%;
+}
+.box-body{
+  width:120px;height:76px;
+  background:#eeb8aa;
+  border-radius:0 0 8px 8px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.ribbon-v{position:absolute;left:50%;transform:translateX(-50%);width:10px;height:100%;background:#d4816e;opacity:.5;border-radius:4px}
+.ribbon-h{position:absolute;top:50%;transform:translateY(-50%);width:100%;height:10px;background:#d4816e;opacity:.5;border-radius:4px}
+.gift-label{font-size:1.4rem;z-index:2}
 
-        .mid {
-            width: 50px;
-            height: 50px;
-            background: #fff340;
-            border-radius: 50%;
-            z-index: 2;
-            position: relative;
-            box-shadow: 0 0 20px rgba(255, 243, 64, 0.5);
-        }
+.scene.open .box-lid{
+  transform:translateY(-50px) rotate(-20deg) scale(.8);
+  opacity:0;
+}
 
-        .petal {
-            position: absolute;
-            background: #ff69b4;
-            border-radius: 50% 50% 0 0;
-            width: 45px;
-            height: 70px;
-            top: -45px;
-            left: 2.5px;
-            transform-origin: bottom center;
-        }
+.bouquet{
+  position:absolute;bottom:0;left:50%;
+  transform:translateX(-50%) scale(0) translateY(20px);
+  transform-origin:bottom center;
+  opacity:0;
+  transition:transform .9s cubic-bezier(.34,1.56,.64,1) .2s, opacity .6s .2s;
+  pointer-events:none;
+  width:160px;height:230px;
+}
+.scene.open .bouquet{
+  transform:translateX(-50%) scale(1) translateY(0);
+  opacity:1;
+}
 
-        /* จัดกลีบดอกไม้รอบๆ */
-        .p1 { transform: rotate(0deg); }
-        .p2 { transform: rotate(60deg); }
-        .p3 { transform: rotate(120deg); }
-        .p4 { transform: rotate(180deg); }
-        .p5 { transform: rotate(240deg); }
-        .p6 { transform: rotate(300deg); }
+.flower{
+  position:absolute;
+  display:flex;flex-direction:column;align-items:center;
+}
+.petals{position:relative;width:44px;height:44px}
+.petal{
+  position:absolute;left:50%;top:50%;
+  width:14px;height:24px;
+  border-radius:50% 50% 40% 40%;
+  margin-left:-7px;margin-top:-24px;
+  transform-origin:bottom center;
+  opacity:.9;
+}
+.center{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:12px;height:12px;
+  background:#fff9c4;border-radius:50%;z-index:5;
+}
+.stem-el{width:4px;background:#8fb87a;border-radius:2px}
 
-        .stem {
-            width: 8px;
-            height: 150px;
-            background: #4caf50;
-            margin-top: -10px;
-            border-radius: 0 0 4px 4px;
-        }
+.f1{bottom:120px;left:16px;animation:sw 3.4s ease-in-out infinite}
+.f2{bottom:150px;left:56px;animation:sw 2.9s ease-in-out infinite .4s}
+.f3{bottom:120px;left:96px;animation:sw 3.1s ease-in-out infinite .2s}
+.f4{bottom:185px;left:32px;animation:sw 2.7s ease-in-out infinite .7s}
+.f5{bottom:178px;left:80px;animation:sw 3.3s ease-in-out infinite .5s}
+@keyframes sw{
+  0%,100%{transform:translateY(0) rotate(-1deg)}
+  50%{transform:translateY(-5px) rotate(1.5deg)}
+}
+.rose{background:#e8a4a4}
+.blush{background:#f2c3b2}
+.cream{background:#f7e0c0}
+.mauve{background:#c9a8c0}
+.peach{background:#f0b8a0}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(3deg); }
-        }
+.wrap{
+  position:absolute;bottom:-8px;left:50%;
+  transform:translateX(-50%);
+  width:140px;height:64px;
+  background:#fdf0e0;
+  border:1px solid #e8d4b8;
+  border-radius:12px 12px 60px 60px;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding-top:10px;
+}
+.wrap-ribbon{
+  width:12px;height:36px;background:#e8c4a0;
+  border-radius:4px;position:absolute;left:50%;transform:translateX(-50%);top:0;opacity:.6;
+}
 
-        /* หัวใจโปรยลงมา */
-        .heart {
-            position: absolute;
-            color: #ff4d6d;
-            font-size: 20px;
-            animation: fall linear infinite;
-            z-index: 1;
-        }
+.hint{
+  margin-top:2rem;
+  font-size:.88rem;color:#c09080;
+  background:#fff8f4;
+  border:1px solid #f0d8cc;
+  padding:7px 18px;border-radius:50px;
+  transition:opacity .4s, transform .4s;
+  cursor:pointer;
+}
+.hint.gone{opacity:0;pointer-events:none;transform:translateY(4px)}
 
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
+.msg{
+  margin-top:1.6rem;
+  font-size:1.1rem;color:#b5715a;
+  opacity:0;
+  transition:opacity .7s .5s;
+  font-weight:500;
+}
+.msg.show{opacity:1}
+
+.petal-rain{
+  position:fixed;pointer-events:none;z-index:50;
+  font-size:16px;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  0%{transform:translateY(-4vh) rotate(0deg);opacity:.9}
+  100%{transform:translateY(104vh) rotate(360deg);opacity:0}
+}
+</style>
 </head>
 <body>
 
-    <h1>ดอกไม้นี้ให้เธอนะ! 🌸</h1>
+<div class="title">มีของขวัญมาให้แหละ 🎁</div>
 
-    <div class="flower">
-        <div class="petal p1"></div>
-        <div class="petal p2"></div>
-        <div class="petal p3"></div>
-        <div class="petal p4"></div>
-        <div class="petal p5"></div>
-        <div class="petal p6"></div>
-        <div class="mid"></div>
+<div class="scene" id="scene">
+  <div class="gift" id="gift">
+    <div class="box-lid" id="lid">
+      <div class="bow">
+        <div class="bow-l"></div>
+        <div class="bow-r"></div>
+        <div class="bow-knot"></div>
+      </div>
     </div>
-    <div class="stem"></div>
+    <div class="box-body">
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+      <span class="gift-label">🎁</span>
+    </div>
+  </div>
 
-    <script>
-        // ฟังก์ชันทำหัวใจตกลงมาเพิ่มความน่ารัก
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            document.body.appendChild(heart);
+  <div class="bouquet" id="bouquet">
+    <div class="flower f1">
+      <div class="petals">
+        <div class="petal rose" style="transform:rotate(0deg) translateY(-20px)"></div>
+        <div class="petal rose" style="transform:rotate(60deg) translateY(-20px)"></div>
+        <div class="petal rose" style="transform:rotate(120deg) translateY(-20px)"></div>
+        <div class="petal rose" style="transform:rotate(180deg) translateY(-20px)"></div>
+        <div class="petal rose" style="transform:rotate(240deg) translateY(-20px)"></div>
+        <div class="petal rose" style="transform:rotate(300deg) translateY(-20px)"></div>
+        <div class="center"></div>
+      </div>
+      <div class="stem-el" style="height:68px"></div>
+    </div>
+    <div class="flower f2">
+      <div class="petals">
+        <div class="petal cream" style="transform:rotate(0deg) translateY(-20px)"></div>
+        <div class="petal cream" style="transform:rotate(60deg) translateY(-20px)"></div>
+        <div class="petal cream" style="transform:rotate(120deg) translateY(-20px)"></div>
+        <div class="petal cream" style="transform:rotate(180deg) translateY(-20px)"></div>
+        <div class="petal cream" style="transform:rotate(240deg) translateY(-20px)"></div>
+        <div class="petal cream" style="transform:rotate(300deg) translateY(-20px)"></div>
+        <div class="center"></div>
+      </div>
+      <div class="stem-el" style="height:88px"></div>
+    </div>
+    <div class="flower f3">
+      <div class="petals">
+        <div class="petal blush" style="transform:rotate(0deg) translateY(-20px)"></div>
+        <div class="petal blush" style="transform:rotate(60deg) translateY(-20px)"></div>
+        <div class="petal blush" style="transform:rotate(120deg) translateY(-20px)"></div>
+        <div class="petal blush" style="transform:rotate(180deg) translateY(-20px)"></div>
+        <div class="petal blush" style="transform:rotate(240deg) translateY(-20px)"></div>
+        <div class="petal blush" style="transform:rotate(300deg) translateY(-20px)"></div>
+        <div class="center"></div>
+      </div>
+      <div class="stem-el" style="height:68px"></div>
+    </div>
+    <div class="flower f4">
+      <div class="petals">
+        <div class="petal mauve" style="transform:rotate(30deg) translateY(-20px)"></div>
+        <div class="petal mauve" style="transform:rotate(90deg) translateY(-20px)"></div>
+        <div class="petal mauve" style="transform:rotate(150deg) translateY(-20px)"></div>
+        <div class="petal mauve" style="transform:rotate(210deg) translateY(-20px)"></div>
+        <div class="petal mauve" style="transform:rotate(270deg) translateY(-20px)"></div>
+        <div class="petal mauve" style="transform:rotate(330deg) translateY(-20px)"></div>
+        <div class="center"></div>
+      </div>
+      <div class="stem-el" style="height:44px"></div>
+    </div>
+    <div class="flower f5">
+      <div class="petals">
+        <div class="petal peach" style="transform:rotate(30deg) translateY(-20px)"></div>
+        <div class="petal peach" style="transform:rotate(90deg) translateY(-20px)"></div>
+        <div class="petal peach" style="transform:rotate(150deg) translateY(-20px)"></div>
+        <div class="petal peach" style="transform:rotate(210deg) translateY(-20px)"></div>
+        <div class="petal peach" style="transform:rotate(270deg) translateY(-20px)"></div>
+        <div class="petal peach" style="transform:rotate(330deg) translateY(-20px)"></div>
+        <div class="center"></div>
+      </div>
+      <div class="stem-el" style="height:52px"></div>
+    </div>
+    <div class="wrap">
+      <div class="wrap-ribbon"></div>
+    </div>
+  </div>
+</div>
 
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }
-        setInterval(createHeart, 300);
-    </script>
+<div class="hint" id="hint">แตะกล่องเพื่อเปิด</div>
+<div class="msg" id="msg">ดอกไม้ช่อนี้ให้เธอนะ 🌸</div>
+
+<script>
+const scene=document.getElementById('scene');
+const hint=document.getElementById('hint');
+const msg=document.getElementById('msg');
+let opened=false;
+const bits=['🌸','🌷','✿','❀','💮'];
+function drop(){
+  const el=document.createElement('div');
+  el.className='petal-rain';
+  el.textContent=bits[Math.floor(Math.random()*bits.length)];
+  el.style.left=Math.random()*96+'vw';
+  el.style.fontSize=(Math.random()*12+10)+'px';
+  const d=(Math.random()*3+3).toFixed(1);
+  el.style.animationDuration=d+'s';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),d*1000+300);
+}
+scene.addEventListener('click',()=>{
+  if(opened)return;
+  opened=true;
+  scene.classList.add('open');
+  hint.classList.add('gone');
+  setTimeout(()=>msg.classList.add('show'),600);
+  let i=setInterval(drop,200);
+  setTimeout(()=>{clearInterval(i);setInterval(drop,700)},4000);
+});
+</script>
 </body>
 </html>
